@@ -91,7 +91,7 @@ http-server -p 8080
 
 # Ataque Simulado
 - La ruta /simulate_attack incrementa un contador de intentos inseguros, simulando un ataque como un intento de downgrade de TLS o una intercepción MITM.
-- En la vida real, esto podría permitir a un atacante leer o modificar datos si no hubiera cifrado adecuado.
+- En la vida real, esto podría permitir a un atacante leer o modificar datos si no hubiera cifrado adecuadamente.
 
 ## Uso
 - **Chat:** Escribe mensajes en la interfaz y observa los ecos en tiempo real.
