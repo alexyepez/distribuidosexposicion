@@ -73,8 +73,6 @@ http-server -p 8080
 
  ## Estructura del Proyecto
 ```
-chat_seguro/
-│
 ├── server.py         # Backend con FastAPI y WebSocket
 ├── index.html        # Frontend con chat y métricas
 ├── cert.pem          # Certificado autofirmado
