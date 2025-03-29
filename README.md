@@ -72,6 +72,7 @@ http-server -p 8080
 - Observa cómo las métricas se actualizan con los mensajes enviados y los intentos inseguros.
 
  ## Estructura del Proyecto
+```
 chat_seguro/
 │
 ├── server.py         # Backend con FastAPI y WebSocket
@@ -79,6 +80,7 @@ chat_seguro/
 ├── cert.pem          # Certificado autofirmado
 ├── key.pem           # Clave privada
 └── README.md         # Este archivo
+```
 
 ## Detalles Técnicos
 # Seguridad con TLS
@@ -96,9 +98,9 @@ chat_seguro/
 ## Uso
 - Chat: Escribe mensajes en la interfaz y observa los ecos en tiempo real.
 - Métricas: Se actualizan cada 2 segundos con fetch, mostrando:
-    Versión TLS.
-    Número de mensajes enviados.
-    Alertas de intentos inseguros.
+    - Versión TLS.
+    - Número de mensajes enviados.
+    - Alertas de intentos inseguros.
 - Simulación de Ataque: Accede a /simulate_attack para probar la detección de vulnerabilidades.
 
 ## Lecciones Aprendidas
