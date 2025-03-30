@@ -67,7 +67,9 @@ http-server -p 8080
     - Firefox: Haz clic en "Avanzado" > "Aceptar el riesgo y continuar".
 
 4. **Prueba el Chat:**
-- Escribe un mensaje y presiona "Enviar" para ver el eco.
+- Al abrir http://127.0.0.1:8080 se pide el nombre del usuario.
+- Se pueden abrir varias páginas para un usurio de chat diferente, cada conexión es independiente y está cifrada por separado.
+- Escribe un mensaje y presiona "Enviar" para que a cada usuario registrado le llegue una copia del mensaje.
 - Simula un ataque abriendo https://127.0.0.1:8443/simulate_attack en otra pestaña.
 - Observa cómo las métricas se actualizan con los mensajes enviados y los intentos inseguros.
 
@@ -94,7 +96,7 @@ http-server -p 8080
 - En la vida real, esto podría permitir a un atacante leer o modificar datos si no hubiera cifrado adecuadamente.
 
 ## Uso
-- **Chat:** Escribe mensajes en la interfaz y observa los ecos en tiempo real.
+- **Chat:** Escribe mensajes en la interfaz y observa la interacción de los mensajes en tiempo real.
 - **Métricas:** Se actualizan cada 2 segundos con fetch, mostrando:
     - Versión TLS.
     - Número de mensajes enviados.
