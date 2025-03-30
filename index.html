@@ -3,12 +3,16 @@
 <head>
     <title>Chat Seguro</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Favicon solución -->
+    <!--  Solución Favicon ícono del mundito-->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <h1>Sistemas Distribuidos - Chat Seguro con TLS</h1>
     <div id="chat"></div>
+    <div id="usernameSection" class="input-container">
+        <label for="username">Nombre:</label>
+        <input id="username" type="text" placeholder="Tu nombre">
+    </div>
     <div class="input-container">
         <input id="message" type="text" placeholder="Escribe un mensaje...">
         <button onclick="sendMessage()">Enviar</button>
@@ -21,8 +25,10 @@
         const ws = new WebSocket("wss://127.0.0.1:8766");
         const chatDiv = document.getElementById("chat");
         const messageInput = document.getElementById("message");
+        const usernameInput = document.getElementById("username");
         const metricsDiv = document.getElementById("metrics");
 
+        /*
         function addMessageToChat(message, type = 'message') {
             const messageElement = document.createElement('div');
             messageElement.classList.add(type);
@@ -30,21 +36,49 @@
             chatDiv.appendChild(messageElement);
             chatDiv.scrollTop = chatDiv.scrollHeight;
         }
-
+        */
+        /*
         ws.onmessage = (event) => {
             console.log("Mensaje recibido:", event.data);
             addMessageToChat(event.data);
         };
+        */
+        ws.onmessage = (event) => {
+            console.log("Mensaje recibido:", event.data);
+            chatDiv.innerText += event.data + "\n";
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        };
 
+        /*
         ws.onerror = (error) => {
             console.log("Error en WebSocket:", error);
             addMessageToChat("Error de conexión al WebSocket.", 'error-message');
         };
+        */
+        ws.onerror = (error) => {
+            console.log("Error en WebSocket:", error);
+            chatDiv.innerText += "Error de conexión al WebSocket.\n";
+        };
 
+        /*
         ws.onopen = () => {
             addMessageToChat("Conexión establecida con éxito.", 'connection-message');
         };
-
+        */
+        ws.onopen = () => {
+            chatDiv.innerText += "Conexión establecida con éxito.\n";
+            // Pedir el nombre al usuario al conectar
+            let username = usernameInput.value.trim();
+            if (!username) {
+                username = prompt("Ingresa tu nombre:");
+                usernameInput.value = username;
+            }
+            if (username) {
+                ws.send(`Nombre: ${username}`);
+            }
+        };
+        
+        /*
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message && ws.readyState === WebSocket.OPEN) {
@@ -55,6 +89,18 @@
                 addMessageToChat("Por favor escribe un mensaje.", 'error-message');
             } else {
                 addMessageToChat("Error: No se pudo enviar el mensaje.", 'error-message');
+            }
+        }
+        */
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message && ws.readyState === WebSocket.OPEN) {
+                ws.send(message);
+                messageInput.value = "";
+                // No agregamos "Tu: " aquí; el servidor lo manejará
+            } else {
+                chatDiv.innerText += "Error: No se pudo enviar el mensaje.\n";
             }
         }
 

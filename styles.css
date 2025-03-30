@@ -206,3 +206,26 @@ button:active {
 #chat::-webkit-scrollbar-thumb:hover {
     background: #3367d6;
 }
+
+/* Estilos para la sección de nombre de usuario */
+#usernameSection {
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+#usernameSection label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+#username {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}

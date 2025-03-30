@@ -13,9 +13,11 @@ ssl_context.load_cert_chain(certfile="cert.pem", keyfile="key.pem")
 # Variables globales para el estado de seguridad y mensajes
 mensajes_enviados = 0
 intentos_fallidos = 0
+clientes = {}  # {websocket: "nombre"}
 
+"""
 async def chat(websocket):
-    """
+    
     Función que maneja una conexión WebSocket para una sesión de chat.
 
     Esta función asíncrona escucha mensajes entrantes desde un cliente WebSocket,
@@ -31,7 +33,7 @@ async def chat(websocket):
         - Imprime cada mensaje recibido en la consola.
         - Envía una respuesta de eco de vuelta al cliente.
         - Maneja la desconexión del cliente capturando la excepción ConnectionClosed.
-    """
+    
     global mensajes_enviados
     try:
         async for mensaje in websocket:
@@ -40,6 +42,29 @@ async def chat(websocket):
             await websocket.send(f"Echo: {mensaje}")
     except websockets.ConnectionClosed:
         print("Cliente desconectado")
+"""
+
+async def chat(websocket):
+    # Agregar el cliente con un nombre por defecto
+    clientes[websocket] = "Anónimo"
+    global mensajes_enviados
+    try:
+        async for mensaje in websocket:
+            # Si el mensaje es para registrar el nombre
+            if mensaje.startswith("Nombre: "):
+                clientes[websocket] = mensaje[7:]  # Extraer el nombre después de "Nombre: "
+                print(f"Cliente registrado como: {clientes[websocket]}")
+            else:
+                # Enviar el mensaje a todos los clientes, incluyendo el nombre del emisor
+                mensajes_enviados += 1
+                sender = clientes[websocket]
+                print(f"Mensaje recibido de {sender}: {mensaje}")
+                for cliente in clientes:
+                    await cliente.send(f"{sender}: {mensaje}")
+    except websockets.ConnectionClosed:
+        print(f"Cliente {clientes[websocket]} desconectado")
+    finally:
+        del clientes[websocket]
 
 app = FastAPI()
 
