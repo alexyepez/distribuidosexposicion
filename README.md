@@ -28,7 +28,7 @@ El objetivo es demostrar conceptos clave de seguridad web, como el uso de TLS pa
 1. **Clona el Repositorio:**
 ```bash
 git clone https://github.com/alexyepez/distribuidosexposicion.git
-cd https://github.com/alexyepez/distribuidosexposicion
+cd distribuidosexposicion
 ```
 
 2. **Instala las Dependencias de Python:**
